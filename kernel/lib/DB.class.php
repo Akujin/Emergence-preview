@@ -56,7 +56,6 @@ class DB
 	
 	static public function nonQuery($query, $parameters = array())
 	{
-		// MICS::dump(func_get_args(), 'nonquery');
 		
 		$query = self::preprocessQuery($query, $parameters);
 		
@@ -199,7 +198,6 @@ class DB
 	
 	static public function allRecords($query, $parameters = array())
 	{
-		// MICS::dump(array('query' => $query, 'params' => $parameters), 'allRecords');
 		
 		// execute query
 		$result = self::query($query, $parameters);
@@ -219,7 +217,6 @@ class DB
 	
 	static public function allValues($valueKey, $query, $parameters = array())
 	{
-		// MICS::dump(array('query' => $query, 'params' => $parameters), 'allRecords');
 		
 		// execute query
 		$result = self::query($query, $parameters);
@@ -355,7 +352,6 @@ class DB
 	// protected static methods
 	static protected function preprocessQuery($query, $parameters = array())
 	{
-		// MICS::dump(array('query'=>$query,'params'=>$parameters), __FUNCTION__);
 		
 		if ( is_array($parameters) && count($parameters) )
 		{
