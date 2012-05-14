@@ -1,0 +1,24 @@
+	server {
+		listen 80   default_server;
+		server_name akuj.in;
+		access_log /var/emergence/sites/akujin/logs/access.log main;
+		error_log /var/emergence/sites/akujin/logs/error.log info;
+		location / {
+			root /var/emergence/kernel/root;
+			index index.php;
+			rewrite ^(.+)$ /index.php last;
+		}
+		location ~ ^/index.php {
+			include /etc/nginx/fastcgi_params;
+			fastcgi_pass 127.0.0.1:9000;
+			fastcgi_param PATH_INFO $fastcgi_script_name;
+			fastcgi_param SITE_ROOT /var/emergence/sites/akujin;
+			fastcgi_param SCRIPT_FILENAME /var/emergence/kernel/root$fastcgi_script_name;
+			fastcgi_param PHP_VALUE	"auto_prepend_file=/var/emergence/kernel/bootstrap.php
+						 include_path=/var/emergence/kernel/lib:/var/emergence/sites/akujin
+						 error_log=/var/emergence/sites/akujin/logs/php/errors.log
+						 error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
+						 date.timezone = America/New_York";
+			fastcgi_index index.php;
+		}
+	}
